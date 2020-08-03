@@ -2,12 +2,27 @@ section{
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+    flex-wrap: wrap;
 }
 main {
     display: grid;
     grid-template-columns: 200px 200px 200px;
     row-gap: 0px;
     justify-content: center;
+    transform: scale(0.5);
+}
+
+@media only screen and (max-width: 600px) {
+    main {
+        transform: scale(0.5);
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    main {
+        transform: scale(0.7);
+    }
 }
 
 app-square {

@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "tick-tack-toe-d3250": {
+      "hosting": {
+        "angular-tick-tack-to": [
+          "tick-tack-toe-d3250"
+        ]
+      }
+    }
+  }
+}
