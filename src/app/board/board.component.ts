@@ -12,9 +12,16 @@ export class BoardComponent implements OnInit {
   winner: string;
   boardCount: number;
   vsComputer = false;
+  scores: { X: number; O: number; tie: number; };
   constructor() { }
 
   ngOnInit() {
+
+    this.scores = {
+      X: 1,
+      O: -1,
+      tie: 0
+    };
     this.newGame();
   }
 
@@ -25,6 +32,9 @@ export class BoardComponent implements OnInit {
     this.play = true;
     this.boardCount = 0;
     this.vsComputer = vsComp;
+    if (Math.floor(Math.random() * 10) % 2 === 0 && vsComp) {
+      this.compMove();
+    }
   }
 
   get player() {
@@ -49,18 +59,19 @@ export class BoardComponent implements OnInit {
 
   compMove() {
     this.boardCount++;
-    let num = 0;
-    do {
-      num = Math.floor(Math.random() * this.squares.length);
+    const num = this.bestMove();
 
-    } while (this.squares[num] !== null);
+    // do {
+    //   num = Math.floor(Math.random() * this.squares.length);
+
+    // } while (this.squares[num] !== null);
+    // console.log(num);
     console.log(num);
-
     setTimeout(() => {
       this.squares.splice(num, 1, this.player);
       this.xIsnext = !this.xIsnext;
-      this.play = true;
       this.winner = this.calculateWinner();
+      this.play = true;
     }, 300);
   }
 
@@ -88,6 +99,66 @@ export class BoardComponent implements OnInit {
       }
     }
     return null;
+  }
+
+
+  bestMove() {
+    // AI to make its turn
+    let bestScore = -Infinity;
+    let move;
+    for (let i = 0; i < this.squares.length; i++) {
+      // Is the spot available?
+      if (this.squares[i] === null) {
+        this.squares[i] = 'X';
+        const score = this.minimax(this.squares, 0, false);
+        this.squares[i] = null;
+        if (score > bestScore) {
+          bestScore = score;
+          move = i;
+        }
+      }
+    }
+    return move;
+  }
+
+
+  minimax(board, depth, isMaximizing) {
+    // return 1;
+    const winner = this.calculateWinner();
+    if (winner !== null ) {
+      return this.scores[winner];
+    }
+
+    if (isMaximizing) {
+      let bestScore = -Infinity;
+      for (let i = 0; i < board.length; i++) {
+        // Is the spot available?
+        if (board[i] === null) {
+          board[i] = 'O';
+          const score = this.minimax(board, depth + 1, false);
+          board[i] = null;
+          // console.log(score, i, board);
+          if (score > bestScore) {
+            bestScore = score;
+          }
+        }
+      }
+      return bestScore;
+    } else {
+      let bestScore = Infinity;
+      for (let i = 0; i < board.length; i++) {
+        // Is the spot available?
+        if (board[i] === null) {
+          board[i] = 'X';
+          const score = this.minimax(board, depth + 1, true);
+          board[i] = null;
+          if (score < bestScore) {
+            bestScore = score;
+          }
+        }
+      }
+      return bestScore;
+    }
   }
 
 }
