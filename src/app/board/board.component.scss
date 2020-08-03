@@ -1,10 +1,17 @@
+section{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
 main {
     display: grid;
     grid-template-columns: 200px 200px 200px;
     row-gap: 0px;
+    justify-content: center;
 }
 
 app-square {
     border: 1px solid #333;
     height: 200px;
+    align-self: center;
 }

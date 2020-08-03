@@ -8,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 export class BoardComponent implements OnInit {
   squares: any = [];
   xIsnext: boolean;
+  play: boolean;
   winner: string;
+  boardCount: number;
   constructor() { }
 
   ngOnInit() {
@@ -19,6 +21,8 @@ export class BoardComponent implements OnInit {
     this.squares = Array(9).fill(null);
     this.winner = null;
     this.xIsnext = true;
+    this.play = true;
+    this.boardCount = 0;
   }
 
   get player() {
@@ -26,7 +30,8 @@ export class BoardComponent implements OnInit {
   }
 
   public makeMove(boxId: number) {
-    if (!this.squares[boxId]) {
+    this.boardCount++;
+    if (!this.squares[boxId] && this.play === true) {
       this.squares.splice(boxId, 1, this.player);
       this.xIsnext = !this.xIsnext;
     }
@@ -44,12 +49,23 @@ export class BoardComponent implements OnInit {
       [0, 4, 8],
       [2, 4, 6]
     ];
-    lines.forEach(line => {
-      const [a, b, c] = line;
-      if (this.squares[a] && this.squares[a] === this.squares[b] && this.squares[a] === this.squares[c]) {
+    // lines.forEach(line => {
+    //   const [a, b, c] = line;
+    //   if (this.squares[a] && this.squares[a] === this.squares[b] && this.squares[a] === this.squares[c]) {
+    //     return this.squares[a];
+    //   }
+    // });
+    for (let i = 0; i < lines.length; i++) {
+      const [a, b, c] = lines[i];
+      if (
+        this.squares[a] &&
+        this.squares[a] === this.squares[b] &&
+        this.squares[a] === this.squares[c]
+      ) {
+        this.play = false;
         return this.squares[a];
       }
-    });
+    }
     return null;
   }
 
