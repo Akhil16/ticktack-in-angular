@@ -4,7 +4,8 @@
     <aside>
         <h1> Current player : {{player}}</h1>
 
-        <button nbButton outline status="danger" (click)="newGame()">Start New Game</button>
+        <button nbButton outline status="danger" (click)="newGame()">Vs Player</button> &nbsp;
+        <button nbButton outline status="danger" (click)="newGame(true)">Vs Computer</button>
 
         <h2 *ngIf="winner">
             Player {{ winner }} won the game!
