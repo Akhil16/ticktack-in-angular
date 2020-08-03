@@ -11,18 +11,20 @@ export class BoardComponent implements OnInit {
   play: boolean;
   winner: string;
   boardCount: number;
+  vsComputer = false;
   constructor() { }
 
   ngOnInit() {
     this.newGame();
   }
 
-  public newGame() {
+  public newGame(vsComp?: boolean) {
     this.squares = Array(9).fill(null);
     this.winner = null;
     this.xIsnext = true;
     this.play = true;
     this.boardCount = 0;
+    this.vsComputer = vsComp;
   }
 
   get player() {
@@ -30,12 +32,36 @@ export class BoardComponent implements OnInit {
   }
 
   public makeMove(boxId: number) {
-    this.boardCount++;
     if (!this.squares[boxId] && this.play === true) {
+      this.boardCount++;
       this.squares.splice(boxId, 1, this.player);
       this.xIsnext = !this.xIsnext;
+      this.winner = this.calculateWinner();
+      if (this.vsComputer) {
+        this.play = false;
+        if (this.winner === null) {
+          this.compMove();
+        }
+      }
+
     }
-    this.winner = this.calculateWinner();
+  }
+
+  compMove() {
+    this.boardCount++;
+    let num = 0;
+    do {
+      num = Math.floor(Math.random() * this.squares.length);
+
+    } while (this.squares[num] !== null);
+    console.log(num);
+
+    setTimeout(() => {
+      this.squares.splice(num, 1, this.player);
+      this.xIsnext = !this.xIsnext;
+      this.play = true;
+      this.winner = this.calculateWinner();
+    }, 300);
   }
 
   calculateWinner(): string {
