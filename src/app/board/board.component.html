@@ -1,18 +1,27 @@
-
 <section>
-    
+
     <aside>
-        <h1> Current player : {{player}}</h1>
+        <nb-card>
+            <nb-card-body>
 
-        <button nbButton outline status="danger" (click)="newGame()">Vs Player</button> &nbsp;
-        <button nbButton outline status="danger" (click)="newGame(true)">Vs Computer</button>
-
-        <h2 *ngIf="winner === 'X' || winner === 'O'">
-            Player {{ winner }} won the game!
-        </h2>
-        <h2 *ngIf="boardCount === 9 && winner === 'tie'">
-            Match Draw!!
-        </h2>
+                <h1> Current player : {{player}}</h1>
+                <p class="justify">
+                    <button nbButton outline status="danger" (click)="newGame(false)">Vs Player</button> &nbsp;
+                    <button nbButton outline status="danger" (click)="newGame(true)">Vs Computer</button>
+                </p>
+                <p class="justify">
+                    <nb-icon icon="people-outline"></nb-icon>
+                    <nb-toggle  [(ngModel)]="vsComputer" status="danger" disabled> </nb-toggle>
+                    <nb-icon icon="person"></nb-icon>
+                </p>
+                <h2 *ngIf="winner === 'X' || winner === 'O'">
+                    Player {{ winner }} won the game!
+                </h2>
+                <h2 *ngIf="boardCount === 9 && winner === 'tie'">
+                    Match Draw!!
+                </h2>
+            </nb-card-body>
+        </nb-card>
     </aside>
     <main>
 

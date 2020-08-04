@@ -13,6 +13,8 @@ export class BoardComponent implements OnInit {
   boardCount: number;
   vsComputer = false;
   scores: { X: number; O: number; tie: number; };
+  computer: string;
+  human: string;
   constructor() { }
 
   ngOnInit() {
@@ -22,7 +24,8 @@ export class BoardComponent implements OnInit {
       O: -10,
       tie: 0
     };
-    this.newGame();
+    this.newGame(false);
+    this.vsComputer = false;
   }
 
   public newGame(vsComp?: boolean) {
@@ -32,8 +35,11 @@ export class BoardComponent implements OnInit {
     this.play = true;
     this.boardCount = 0;
     this.vsComputer = vsComp;
-    if (Math.floor(Math.random() * 10) % 2 === 0 || vsComp) {
+    // if (Math.floor(Math.random() * 10) % 2 === 0 && vsComp) {
+    if (vsComp) {
       this.compMove();
+      this.human = 'O';
+      this.computer = 'X';
     }
   }
 
@@ -112,7 +118,7 @@ export class BoardComponent implements OnInit {
     for (let i = 0; i < this.squares.length; i++) {
       // Is the spot available?
       if (this.squares[i] === null) {
-        this.squares[i] = 'X';
+        this.squares[i] = this.computer;
         const score = this.minimax(this.squares, 0, false);
         this.squares[i] = null;
         if (score > bestScore) {
@@ -137,7 +143,7 @@ export class BoardComponent implements OnInit {
       for (let i = 0; i < board.length; i++) {
         // Is the spot available?
         if (board[i] === null) {
-          board[i] = 'X';
+          board[i] = this.computer;
           const score = this.minimax(board, depth + 1, false);
           board[i] = null;
           // console.log(score, i, board);
@@ -152,7 +158,7 @@ export class BoardComponent implements OnInit {
       for (let i = 0; i < board.length; i++) {
         // Is the spot available?
         if (board[i] === null) {
-          board[i] = 'O';
+          board[i] = this.human;
           const score = this.minimax(board, depth + 1, true);
           board[i] = null;
           if (score < bestScore) {
