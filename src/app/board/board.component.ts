@@ -18,8 +18,8 @@ export class BoardComponent implements OnInit {
   ngOnInit() {
 
     this.scores = {
-      X: 1,
-      O: -1,
+      X: 10,
+      O: -10,
       tie: 0
     };
     this.newGame();
@@ -32,7 +32,7 @@ export class BoardComponent implements OnInit {
     this.play = true;
     this.boardCount = 0;
     this.vsComputer = vsComp;
-    if (Math.floor(Math.random() * 10) % 2 === 0 && vsComp) {
+    if (Math.floor(Math.random() * 10) % 2 === 0 || vsComp) {
       this.compMove();
     }
   }
@@ -97,6 +97,9 @@ export class BoardComponent implements OnInit {
         this.play = false;
         return this.squares[a];
       }
+      if (this.boardCount === 9) {
+        return 'tie';
+      }
     }
     return null;
   }
@@ -125,7 +128,7 @@ export class BoardComponent implements OnInit {
   minimax(board, depth, isMaximizing) {
     // return 1;
     const winner = this.calculateWinner();
-    if (winner !== null ) {
+    if (winner !== null) {
       return this.scores[winner];
     }
 
@@ -134,7 +137,7 @@ export class BoardComponent implements OnInit {
       for (let i = 0; i < board.length; i++) {
         // Is the spot available?
         if (board[i] === null) {
-          board[i] = 'O';
+          board[i] = 'X';
           const score = this.minimax(board, depth + 1, false);
           board[i] = null;
           // console.log(score, i, board);
@@ -149,7 +152,7 @@ export class BoardComponent implements OnInit {
       for (let i = 0; i < board.length; i++) {
         // Is the spot available?
         if (board[i] === null) {
-          board[i] = 'X';
+          board[i] = 'O';
           const score = this.minimax(board, depth + 1, true);
           board[i] = null;
           if (score < bestScore) {

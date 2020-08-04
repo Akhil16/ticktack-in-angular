@@ -7,10 +7,10 @@
         <button nbButton outline status="danger" (click)="newGame()">Vs Player</button> &nbsp;
         <button nbButton outline status="danger" (click)="newGame(true)">Vs Computer</button>
 
-        <h2 *ngIf="winner">
+        <h2 *ngIf="winner === 'X' || winner === 'O'">
             Player {{ winner }} won the game!
         </h2>
-        <h2 *ngIf="boardCount === 9 && winner === null">
+        <h2 *ngIf="boardCount === 9 && winner === 'tie'">
             Match Draw!!
         </h2>
     </aside>
