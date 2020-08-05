@@ -24,8 +24,8 @@ export class BoardComponent implements OnInit {
       O: -10,
       tie: 0
     };
-    this.newGame(false);
-    this.vsComputer = false;
+    this.newGame(true);
+    this.vsComputer = true;
   }
 
   public newGame(vsComp?: boolean) {
