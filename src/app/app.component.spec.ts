@@ -1,31 +1,37 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+import { Pipe, PipeTransform, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 
+
 describe('AppComponent', () => {
-  beforeEach(async(() => {
+  let fixture;
+  let component;
+
+  beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [ ],
       declarations: [
-        AppComponent
+        AppComponent,
       ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA ],
+      providers: [
+
+      ]
+    }).overrideComponent(AppComponent, {
+
     }).compileComponents();
-  }));
-
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.debugElement.componentInstance;
   });
 
-  it(`should have as title 'angular-tick-tack-to'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('angular-tick-tack-to');
+  afterEach(() => {
+    component.ngOnDestroy = function() {};
+    fixture.destroy();
   });
 
-  it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to angular-tick-tack-to!');
+  it('should run #constructor()', async () => {
+    expect(component).toBeTruthy();
   });
+
 });
