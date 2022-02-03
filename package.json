@@ -25,7 +25,7 @@
     "@nebular/eva-icons": "6.0.0",
     "@nebular/theme": "^6.0.0",
     "eva-icons": "^1.1.2",
-    "firebase": "^7.13.1",
+    "firebase": "^7.24.0",
     "rxjs": "~6.6.2",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.3"
