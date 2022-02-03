@@ -28,7 +28,7 @@
     "firebase": "^7.13.1",
     "rxjs": "~6.6.2",
     "tslib": "^1.10.0",
-    "zone.js": "~0.10.3"
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
     "@angular-devkit/architect": ">= 0.900 < 0.1100",
