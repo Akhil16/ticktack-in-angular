@@ -11,7 +11,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 # Contributers
 
-feel free to update styling, add more transitions etc
-// TODO:
-> Player going first needs improvements
-> test cases to be written using jest
+Feel free to update styling, add more transitions etc
+### // TODO:
+- [ ] Player going first needs improvements
+- [ ] Test cases to be written using jest
